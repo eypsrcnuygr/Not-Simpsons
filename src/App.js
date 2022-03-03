@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import requestMaker from "./helpers/requestMaker";
-import { LocalStorageSetter } from "./helpers/LocalStorageSetter";
 import { LocalStorageGetter } from "./helpers/LocalStorageGetter";
 import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
 import NavBar from "./Components/Navbar";
 import { Link } from "react-router-dom";
+import { BatchStorageSetter } from "./helpers/BatchStorageSetter";
+import { BatchSplicer } from "./helpers/BatchSplicer";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error, about } =
@@ -36,16 +37,8 @@ function App(props) {
   const abouts = LocalStorageGetter("abouts") || props.about;
 
   const handleRemove = (index) => {
-    names.splice(index, 1);
-    avatars.splice(index, 1);
-    ids.splice(index, 1);
-    jobs.splice(index, 1);
-    abouts.splice(index, 1);
-    LocalStorageSetter("names", names);
-    LocalStorageSetter("jobs", jobs);
-    LocalStorageSetter("ids", ids);
-    LocalStorageSetter("avatars", avatars);
-    LocalStorageSetter("abouts", abouts);
+    BatchSplicer(names, avatars, ids, jobs, abouts, index);
+    BatchStorageSetter(names, jobs, ids, avatars, abouts);
 
     props.deleteOneCharacter(names, avatars, jobs, ids, abouts);
   };
@@ -59,11 +52,7 @@ function App(props) {
   }, []);
 
   useEffect(() => {
-    LocalStorageSetter("names", names);
-    LocalStorageSetter("jobs", jobs);
-    LocalStorageSetter("ids", ids);
-    LocalStorageSetter("avatars", avatars);
-    LocalStorageSetter("abouts", abouts);
+    BatchStorageSetter(names, jobs, ids, avatars, abouts);
   }, [names, jobs, ids, avatars, abouts]);
 
   let i = -1;

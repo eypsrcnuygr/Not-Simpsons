@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import addOneCharacterHelper from "../helpers/AddOneCharacterHelper";
 import { useState } from "react";
 import { LocalStorageGetter } from "../helpers/LocalStorageGetter";
-import { LocalStorageSetter } from "../helpers/LocalStorageSetter";
+import { BatchStorageSetter } from "../helpers/BatchStorageSetter";
 import { useNavigate } from "react-router-dom";
+import { BatchPusher } from "../helpers/BatchPusher";
 
 const mapDispatchToProps = (dispatch) => ({
   addOneCharacter: (names, jobs, avatars, ids, abouts) =>
@@ -24,17 +25,19 @@ const Form = (props) => {
     const avatars = LocalStorageGetter("avatars");
     const abouts = LocalStorageGetter("abouts");
 
-    names.push(fullName);
-    jobs.push(jobTitle);
-    avatars.push(image);
-    abouts.push(aboutState);
-    i++;
-    ids.push(i.toString());
-    LocalStorageSetter("names", names);
-    LocalStorageSetter("jobs", jobs);
-    LocalStorageSetter("ids", ids);
-    LocalStorageSetter("avatars", avatars);
-    LocalStorageSetter("abouts", abouts);
+    BatchPusher(
+      names,
+      fullName,
+      jobs,
+      jobTitle,
+      avatars,
+      image,
+      abouts,
+      aboutState,
+      i,
+      ids
+    );
+    BatchStorageSetter(names, jobs, ids, avatars, abouts);
 
     props.addOneCharacter(names, jobs, avatars, ids, abouts);
     navigate("/");
