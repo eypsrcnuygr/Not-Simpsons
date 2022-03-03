@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import requestMaker from "./helpers/requestMaker";
 import { LocalStorageSetter } from "./helpers/LocalStorageSetter";
 import { LocalStorageGetter } from "./helpers/LocalStorageGetter";
+import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error } =
@@ -22,7 +23,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   requestMaker: () => dispatch(requestMaker()),
-  // reqMakerForPokemon: (url) => dispatch(reqMakerForPokemon(url)),
+  deleteOneCharacter: (names, jobs, avatars, ids) =>
+    dispatch(deleteOneCharacterHelper(names, jobs, avatars, ids)),
 });
 
 function App(props) {
@@ -33,8 +35,15 @@ function App(props) {
 
   const handleRemove = (index) => {
     names.splice(index, 1);
+    avatars.splice(index, 1);
+    ids.splice(index, 1);
+    jobs.splice(index, 1);
     LocalStorageSetter("names", names);
-    window.location.reload();
+    LocalStorageSetter("jobs", jobs);
+    LocalStorageSetter("ids", ids);
+    LocalStorageSetter("avatars", avatars);
+
+    props.deleteOneCharacter(names, avatars, jobs, ids);
   };
 
   useEffect(() => {

@@ -32,6 +32,16 @@ const FetchAllCharactersReducer = (state = initialState, action) => {
         id: null,
         error: action.payload,
       };
+    case "DELETE_ONE_CHARACTER":
+      console.log(action.payload.name);
+      return {
+        isFetching: false,
+        name: action.payload.name,
+        avatar: action.payload.avatar,
+        job: action.payload.job,
+        id: action.payload.id,
+        error: "",
+      };
     default:
       return state;
   }

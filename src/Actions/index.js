@@ -12,10 +12,10 @@ export const fetchAllCharactersFailure = (error) => ({
   payload: error,
 });
 
-//   export const fetchPokemon = url => ({
-//     type: 'FETCH_POKEMON',
-//     payload: url,
-//   });
+export const deleteOneCharacter = (name, avatar, job, id) => ({
+  type: "DELETE_ONE_CHARACTER",
+  payload: { name, avatar, job, id },
+});
 
 //   export const fetchPokemonLoading = () => ({
 //     type: 'FETCH_POKEMON_LOADING',
