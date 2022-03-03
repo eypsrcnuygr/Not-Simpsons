@@ -1,6 +1,5 @@
 import "./App.css";
 import { connect } from "react-redux";
-// import { Link, useSearchParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import requestMaker from "./helpers/requestMaker";
 import { LocalStorageSetter } from "./helpers/LocalStorageSetter";
@@ -68,6 +67,10 @@ function App(props) {
   }, [names, jobs, ids, avatars, abouts]);
 
   let i = -1;
+
+  if (props.error) {
+    return <div>Sorry something went wrong! {props.error.message}</div>;
+  }
   return (
     <div className="container mb-3">
       <NavBar />{" "}
