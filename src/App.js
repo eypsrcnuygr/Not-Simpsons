@@ -64,7 +64,7 @@ function App(props) {
 
   let i = -1;
   return (
-    <div className="container">
+    <div className="container mb-3">
       <NavBar />{" "}
       {names ? (
         names.map((name) => {
