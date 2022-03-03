@@ -21,6 +21,7 @@ const FetchAllCharactersReducer = (state = initialState, action) => {
         avatar: action.payload.avatar,
         job: action.payload.job,
         id: action.payload.id,
+        about: action.payload.about,
         error: "",
       };
     case "FETCH_ALL_CHARACTERS_FAILURE":
@@ -30,16 +31,27 @@ const FetchAllCharactersReducer = (state = initialState, action) => {
         avatar: null,
         job: null,
         id: null,
+        about: null,
         error: action.payload,
       };
     case "DELETE_ONE_CHARACTER":
-      console.log(action.payload.name);
       return {
         isFetching: false,
         name: action.payload.name,
         avatar: action.payload.avatar,
         job: action.payload.job,
         id: action.payload.id,
+        about: action.payload.about,
+        error: "",
+      };
+    case "ADD_ONE_CHARACTER":
+      return {
+        isFetching: false,
+        name: action.payload.name,
+        avatar: action.payload.avatar,
+        job: action.payload.job,
+        id: action.payload.id,
+        about: action.payload.about,
         error: "",
       };
     default:

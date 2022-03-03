@@ -9,7 +9,7 @@ import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
 import NavBar from "./Components/Navbar";
 
 const mapStateToProps = (state) => {
-  const { name, avatar, job, id, isFetching, error } =
+  const { name, avatar, job, id, isFetching, error, about } =
     state.FetchAllCharactersReducer;
 
   return {
@@ -19,13 +19,14 @@ const mapStateToProps = (state) => {
     id,
     isFetching,
     error,
+    about,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   requestMaker: () => dispatch(requestMaker()),
-  deleteOneCharacter: (names, jobs, avatars, ids) =>
-    dispatch(deleteOneCharacterHelper(names, jobs, avatars, ids)),
+  deleteOneCharacter: (names, jobs, avatars, ids, abouts) =>
+    dispatch(deleteOneCharacterHelper(names, jobs, avatars, ids, abouts)),
 });
 
 function App(props) {
@@ -33,23 +34,26 @@ function App(props) {
   const avatars = LocalStorageGetter("avatars") || props.avatar;
   const ids = LocalStorageGetter("ids") || props.id;
   const jobs = LocalStorageGetter("jobs") || props.job;
+  const abouts = LocalStorageGetter("abouts") || props.about;
 
   const handleRemove = (index) => {
     names.splice(index, 1);
     avatars.splice(index, 1);
     ids.splice(index, 1);
     jobs.splice(index, 1);
+    abouts.splice(index, 1);
     LocalStorageSetter("names", names);
     LocalStorageSetter("jobs", jobs);
     LocalStorageSetter("ids", ids);
     LocalStorageSetter("avatars", avatars);
+    LocalStorageSetter("abouts", abouts);
 
-    props.deleteOneCharacter(names, avatars, jobs, ids);
+    props.deleteOneCharacter(names, avatars, jobs, ids, abouts);
   };
 
   useEffect(() => {
-    const { requestMaker } = props;
-    if (!props.isFetching) {
+    const { requestMaker, name } = props;
+    if (!props.isFetching && !name) {
       requestMaker();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,7 +64,8 @@ function App(props) {
     LocalStorageSetter("jobs", jobs);
     LocalStorageSetter("ids", ids);
     LocalStorageSetter("avatars", avatars);
-  }, [names, jobs, ids, avatars]);
+    LocalStorageSetter("abouts", abouts);
+  }, [names, jobs, ids, avatars, abouts]);
 
   let i = -1;
   return (

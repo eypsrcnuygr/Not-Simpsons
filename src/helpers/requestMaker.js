@@ -17,7 +17,8 @@ const requestMaker = () => (dispatch) => {
           result.data.map((element) => element.name),
           result.data.map((element) => element.avatar),
           result.data.map((element) => element.job),
-          result.data.map((element) => element.id)
+          result.data.map((element) => element.id),
+          result.data.map((element) => element.name)
         )
       );
       return result;
