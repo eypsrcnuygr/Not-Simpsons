@@ -63,7 +63,7 @@ function App(props) {
   }
   return (
     <div className="container mb-3">
-      <NavBar />{" "}
+      <NavBar /> <h1 className="text-center fw-bold mt-3">Characters</h1>
       {names ? (
         names.map((name) => {
           i++;

@@ -6,7 +6,7 @@ const Details = () => {
   const from = location.state;
 
   return (
-    <div className="text-center">
+    <div className="text-center container">
       <NavBar />
       <div className="card w-50 mx-auto shadow shadow-lg mt-3 p-3">
         <div>
