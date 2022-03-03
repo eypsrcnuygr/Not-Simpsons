@@ -7,6 +7,7 @@ import NavBar from "./Components/Navbar";
 import { Link } from "react-router-dom";
 import { BatchStorageSetter } from "./helpers/BatchStorageSetter";
 import { BatchSplicer } from "./helpers/BatchSplicer";
+import PropTypes from "prop-types";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error, about } =
@@ -112,5 +113,16 @@ function App(props) {
     </div>
   );
 }
+
+App.propTypes = {
+  isFetching: PropTypes.bool,
+  name: PropTypes.instanceOf(Array),
+  requestMaker: PropTypes.func,
+  avatar: PropTypes.instanceOf(Array),
+  job: PropTypes.instanceOf(Array),
+  id: PropTypes.instanceOf(Array),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  about: PropTypes.instanceOf(Array),
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

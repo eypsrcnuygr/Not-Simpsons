@@ -6,18 +6,19 @@ import { LocalStorageGetter } from "../helpers/LocalStorageGetter";
 import { BatchStorageSetter } from "../helpers/BatchStorageSetter";
 import { useNavigate } from "react-router-dom";
 import { BatchPusher } from "../helpers/BatchPusher";
+import PropTypes from "prop-types";
 
 const mapDispatchToProps = (dispatch) => ({
   addOneCharacter: (names, jobs, avatars, ids, abouts) =>
     dispatch(addOneCharacterHelper(names, jobs, avatars, ids, abouts)),
 });
 
-let i = 200;
-
 const Form = (props) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
+    let i = LocalStorageGetter("ids")?.slice(-1);
+
     e.preventDefault();
     const names = LocalStorageGetter("names");
     const jobs = LocalStorageGetter("jobs");
@@ -107,4 +108,14 @@ const Form = (props) => {
   );
 };
 
+Form.propTypes = {
+  isFetching: PropTypes.bool,
+  name: PropTypes.instanceOf(Array),
+  requestMaker: PropTypes.func,
+  avatar: PropTypes.instanceOf(Array),
+  job: PropTypes.instanceOf(Array),
+  id: PropTypes.instanceOf(Array),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  about: PropTypes.instanceOf(Array),
+};
 export default connect(null, mapDispatchToProps)(Form);

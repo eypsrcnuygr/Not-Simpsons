@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import NavBar from "./Navbar";
 
-const Details = (state) => {
+const Details = () => {
   const location = useLocation();
   const from = location.state;
 
