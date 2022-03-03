@@ -1,4 +1,3 @@
-import "./App.css";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import requestMaker from "./helpers/requestMaker";
@@ -6,6 +5,7 @@ import { LocalStorageSetter } from "./helpers/LocalStorageSetter";
 import { LocalStorageGetter } from "./helpers/LocalStorageGetter";
 import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
 import NavBar from "./Components/Navbar";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error, about } =
@@ -89,7 +89,12 @@ function App(props) {
                   height="50"
                 />{" "}
               </div>
-              <div className="mx-5 mt-4"> {name} </div>
+              <Link
+                to="/details"
+                state={{ name: name, about: abouts[i], avatar: avatars[i] }}
+              >
+                {name}
+              </Link>
               <div className="mx-5 mt-4"> {jobs[i]} </div>
               <div>
                 {" "}
