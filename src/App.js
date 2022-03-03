@@ -78,32 +78,41 @@ function App(props) {
         names.map((name) => {
           i++;
           return (
-            <div key={ids[i]} className="d-flex justify-content-between">
-              {" "}
-              <div className="my-3">
+            <div key={ids[i]} className="card px-2">
+              <div className="d-flex justify-content-between shadow align-items-center bg-light">
                 {" "}
-                <img
-                  src={avatars[i]}
-                  alt={`Simpson ${name}`}
-                  width="50"
-                  height="50"
-                />{" "}
-              </div>
-              <Link
-                to="/details"
-                state={{ name: name, about: abouts[i], avatar: avatars[i] }}
-              >
-                {name}
-              </Link>
-              <div className="mx-5 mt-4"> {jobs[i]} </div>
-              <div>
-                {" "}
-                <button
-                  onClick={() => handleRemove(names.indexOf(name))}
-                  className="btn btn-primary mx-5 mt-3 text-uppercase"
+                <div className="my-3">
+                  {" "}
+                  <img
+                    src={avatars[i]}
+                    alt={`Simpson ${name}`}
+                    width="50"
+                    height="50"
+                    className="mx-5"
+                  />{" "}
+                </div>
+                <Link
+                  to="/details"
+                  state={{
+                    name: name,
+                    about: abouts[i],
+                    avatar: avatars[i],
+                    job: jobs[i],
+                  }}
+                  className="fw-bold"
                 >
-                  Delete
-                </button>{" "}
+                  {name}
+                </Link>
+                <div> {jobs[i]} </div>
+                <div>
+                  {" "}
+                  <button
+                    onClick={() => handleRemove(names.indexOf(name))}
+                    className="btn btn-primary mx-5 text-uppercase fw-bold"
+                  >
+                    Delete
+                  </button>{" "}
+                </div>{" "}
               </div>
             </div>
           );

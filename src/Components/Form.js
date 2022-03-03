@@ -48,7 +48,7 @@ const Form = (props) => {
   return (
     <div className="container">
       <NavBar />
-      <form className="w-50 mx-auto mt-3">
+      <form className="w-50 mx-auto mt-3 card p-4 shadow shadow-lg">
         <div className="form-group">
           <label htmlFor="FullName">Name Surname</label>
           <input

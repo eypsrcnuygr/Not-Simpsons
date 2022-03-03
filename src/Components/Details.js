@@ -5,20 +5,24 @@ const Details = (state) => {
   const location = useLocation();
   const from = location.state;
 
-  console.log(from);
   return (
-    <div>
+    <div className="text-center">
       <NavBar />
-      <div>
-        <img
-          src={from.avatar}
-          alt={`Simpson ${from.name}`}
-          width="300"
-          height="300"
-        />
+      <div className="card w-50 mx-auto shadow shadow-lg mt-3 p-3">
+        <div>
+          <img
+            src={from.avatar}
+            alt={`Simpson ${from.name}`}
+            width="300"
+            height="300"
+          />
+        </div>
+        <div className="mt-3 fw-bold">{from.name}</div>
+        <div>{from.job}</div>
+        <div className="mt-5">
+          <p>{from.about}</p>{" "}
+        </div>
       </div>
-      <div>{from.name}</div>
-      <div>{from.about}</div>
     </div>
   );
 };
