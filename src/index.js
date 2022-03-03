@@ -1,15 +1,16 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.css";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./Store/index";
+import AppContainer from "./Components/AppContainer";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AppContainer />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

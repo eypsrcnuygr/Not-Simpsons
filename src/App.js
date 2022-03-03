@@ -6,6 +6,7 @@ import requestMaker from "./helpers/requestMaker";
 import { LocalStorageSetter } from "./helpers/LocalStorageSetter";
 import { LocalStorageGetter } from "./helpers/LocalStorageGetter";
 import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
+import NavBar from "./Components/Navbar";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error } =
@@ -51,6 +52,7 @@ function App(props) {
     if (!props.isFetching) {
       requestMaker();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -62,15 +64,15 @@ function App(props) {
 
   let i = -1;
   return (
-    <div>
-      {" "}
+    <div className="container">
+      <NavBar />{" "}
       {names ? (
         names.map((name) => {
           i++;
           return (
-            <div key={ids[i]} className="d-flex">
+            <div key={ids[i]} className="d-flex justify-content-between">
               {" "}
-              <div className="image-container">
+              <div className="my-3">
                 {" "}
                 <img
                   src={avatars[i]}
@@ -79,10 +81,14 @@ function App(props) {
                   height="50"
                 />{" "}
               </div>
-              <div className="name-container"> {name} </div>
+              <div className="mx-5 mt-4"> {name} </div>
+              <div className="mx-5 mt-4"> {jobs[i]} </div>
               <div>
                 {" "}
-                <button onClick={() => handleRemove(names.indexOf(name))}>
+                <button
+                  onClick={() => handleRemove(names.indexOf(name))}
+                  className="btn btn-primary mx-5 mt-3 text-uppercase"
+                >
                   Delete
                 </button>{" "}
               </div>
