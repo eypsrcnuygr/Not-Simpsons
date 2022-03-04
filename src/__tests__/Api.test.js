@@ -1,8 +1,4 @@
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Provider } from "react-redux";
-import AppContainer from "../Components/AppContainer";
-import store from "../Store/index";
 
 describe("App", () => {
   test("Make the API Call", async () => {
