@@ -99,6 +99,7 @@ function App(props) {
                   <button
                     onClick={() => handleRemove(names.indexOf(name))}
                     className="btn btn-primary mx-5 text-uppercase fw-bold"
+                    data-testid="Delete"
                   >
                     Delete
                   </button>{" "}

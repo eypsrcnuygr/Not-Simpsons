@@ -59,6 +59,7 @@ const Form = (props) => {
             type="text"
             className="form-control"
             id="FullName"
+            data-testid="FullName"
             placeholder="Enter the Characters Name"
             onChange={(e) => setFullName(e.target.value)}
           />
@@ -72,6 +73,7 @@ const Form = (props) => {
             type="text"
             className="form-control"
             id="JobTitle"
+            data-testid="JobTitle"
             placeholder="Enter the Characters Job Title"
             onChange={(e) => setJobTitle(e.target.value)}
           />
@@ -81,6 +83,7 @@ const Form = (props) => {
           <textarea
             className="form-control"
             id="About"
+            data-testid="About"
             rows="3"
             onChange={(e) => setAbout(e.target.value)}
           ></textarea>
@@ -91,12 +94,14 @@ const Form = (props) => {
             type="text"
             className="form-control"
             id="ImageLink"
+            data-testid="ImageLink"
             onChange={(e) => setImage(e.target.value)}
           />
         </div>
         <button
           type="submit"
           className="btn btn-primary mt-4"
+          data-testid="submit"
           onClick={(e) => {
             handleClick(e);
           }}
