@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import requestMaker from "./helpers/requestMaker";
-import { LocalStorageGetter } from "./helpers/LocalStorageGetter";
 import deleteOneCharacterHelper from "./helpers/DeleteOneCharacter";
 import NavBar from "./Components/Navbar";
 import { Link } from "react-router-dom";
 import { BatchStorageSetter } from "./helpers/BatchStorageSetter";
 import { BatchSplicer } from "./helpers/BatchSplicer";
 import PropTypes from "prop-types";
+import { BatchStorageGetter } from "./helpers/BatchStorageGetter";
 
 const mapStateToProps = (state) => {
   const { name, avatar, job, id, isFetching, error, about } =
@@ -31,17 +31,32 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function App(props) {
-  const names = LocalStorageGetter("names") || props.name;
-  const avatars = LocalStorageGetter("avatars") || props.avatar;
-  const ids = LocalStorageGetter("ids") || props.id;
-  const jobs = LocalStorageGetter("jobs") || props.job;
-  const abouts = LocalStorageGetter("abouts") || props.about;
+  const batchResults = BatchStorageGetter(props);
 
   const handleRemove = (index) => {
-    BatchSplicer(names, avatars, ids, jobs, abouts, index);
-    BatchStorageSetter(names, jobs, ids, avatars, abouts);
+    BatchSplicer(
+      batchResults.names,
+      batchResults.avatars,
+      batchResults.ids,
+      batchResults.jobs,
+      batchResults.abouts,
+      index
+    );
+    BatchStorageSetter(
+      batchResults.names,
+      batchResults.jobs,
+      batchResults.ids,
+      batchResults.avatars,
+      batchResults.abouts
+    );
 
-    props.deleteOneCharacter(names, avatars, jobs, ids, abouts);
+    props.deleteOneCharacter(
+      batchResults.names,
+      batchResults.avatars,
+      batchResults.jobs,
+      batchResults.ids,
+      batchResults.abouts
+    );
   };
 
   useEffect(() => {
@@ -53,8 +68,20 @@ function App(props) {
   }, []);
 
   useEffect(() => {
-    BatchStorageSetter(names, jobs, ids, avatars, abouts);
-  }, [names, jobs, ids, avatars, abouts]);
+    BatchStorageSetter(
+      batchResults.names,
+      batchResults.jobs,
+      batchResults.ids,
+      batchResults.avatars,
+      batchResults.abouts
+    );
+  }, [
+    batchResults.names,
+    batchResults.jobs,
+    batchResults.ids,
+    batchResults.avatars,
+    batchResults.abouts,
+  ]);
 
   let i = -1;
 
@@ -64,17 +91,17 @@ function App(props) {
   return (
     <div className="container mb-3">
       <NavBar /> <h1 className="text-center fw-bold mt-3">Characters</h1>
-      {names ? (
-        names.map((name) => {
+      {batchResults.names ? (
+        batchResults.names.map((name) => {
           i++;
           return (
-            <div key={ids[i]} className="card px-2">
+            <div key={batchResults.ids[i]} className="card px-2">
               <div className="d-flex justify-content-between shadow align-items-center bg-light">
                 {" "}
                 <div className="my-3">
                   {" "}
                   <img
-                    src={avatars[i]}
+                    src={batchResults.avatars[i]}
                     alt={`Simpson ${name}`}
                     width="50"
                     height="50"
@@ -85,19 +112,21 @@ function App(props) {
                   to="/details"
                   state={{
                     name: name,
-                    about: abouts[i],
-                    avatar: avatars[i],
-                    job: jobs[i],
+                    about: batchResults.abouts[i],
+                    avatar: batchResults.avatars[i],
+                    job: batchResults.jobs[i],
                   }}
                   className="fw-bold"
                 >
                   {name}
                 </Link>
-                <div> {jobs[i]} </div>
+                <div> {batchResults.jobs[i]} </div>
                 <div>
                   {" "}
                   <button
-                    onClick={() => handleRemove(names.indexOf(name))}
+                    onClick={() =>
+                      handleRemove(batchResults.names.indexOf(name))
+                    }
                     className="btn btn-primary mx-5 text-uppercase fw-bold"
                     data-testid={i + "Delete"}
                   >

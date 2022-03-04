@@ -7,7 +7,7 @@ import Form from "../Components/Form";
 import store from "../Store/index";
 import "jest-canvas-mock";
 
-describe("Add Character", () => {
+describe("Form", () => {
   test("it adds the character", async () => {
     const history = createMemoryHistory();
     Storage.prototype.setItem = jest.fn(() => ["Test"]);
