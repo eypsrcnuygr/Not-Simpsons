@@ -8,11 +8,12 @@ import store from "../Store/index";
 import "jest-canvas-mock";
 
 describe("Add Character", () => {
-  test("it adds the character and navigate to main page", async () => {
+  test("it adds the character", async () => {
     const history = createMemoryHistory();
-
     Storage.prototype.setItem = jest.fn(() => ["Test"]);
-    Storage.prototype.getItem = jest.fn(() => ["Test"]);
+    JSON.parse = Storage.prototype.getItem = jest.fn(() => [
+      { 0: "Test", 1: "Test2" },
+    ]);
 
     render(
       <Provider store={store}>

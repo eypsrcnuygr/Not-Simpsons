@@ -1,3 +1,3 @@
 export const LocalStorageGetter = (name) => {
-  return localStorage.getItem(name);
+  return JSON.parse(localStorage.getItem(name));
 };
