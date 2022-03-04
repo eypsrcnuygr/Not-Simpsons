@@ -1,11 +1,4 @@
-import {
-  render,
-  screen,
-  waitFor,
-  userEvent,
-  fireEvent,
-} from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
