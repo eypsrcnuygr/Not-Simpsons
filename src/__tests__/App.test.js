@@ -5,7 +5,7 @@ import AppContainer from "../Components/AppContainer";
 import store from "../Store/index";
 
 describe("App", () => {
-  test("renders Main Page", async () => {
+  test("renders Main Page", () => {
     render(
       <Provider store={store}>
         <AppContainer />
